@@ -57,3 +57,21 @@ how to push to dev:
 
 -- `git push origin dev`
 
+
+Sample workflow:
+
+`git pull origin dev` - to pull most recent changes
+
+`git checkout -b stan-button` - to create a new branch to work on
+
+work on button
+
+`git add . `
+
+`git commit -m'worked on button'`
+
+`git checkout dev` (now I'm on dev branch)
+
+`git merge stan-button` (while I'm on dev branch)
+
+Finally: `git push origin dev`
