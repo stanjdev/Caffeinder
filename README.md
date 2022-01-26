@@ -30,3 +30,30 @@ of creating a new branch with name and task
 
 Once we are ready to go live and submit the final project and 
 everything is working, I will merge it with main.
+
+clone down dev branch:
+
+-- git clone -b dev https://github.com/stanjdev/Caffinder
+
+add your fork url to origin remote:
+
+-- git remote set-url --add origin <>
+
+create your branch off dev:
+
+-- git checkout -b branchname
+
+how to merge your branch with dev branch:
+
+-- git checkout dev
+-- git merge (branch name)
+
+how to pull dev branch:
+
+-- git checkout dev
+-- git pull origin dev
+
+how to push to dev:
+
+-- git push origin dev
+
