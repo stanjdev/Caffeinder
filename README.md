@@ -79,3 +79,19 @@ work on button
 `git merge stan-button` (while I'm on dev branch)
 
 Finally: `git push origin dev`
+
+--------
+
+If there is a completed task while you are working on your task,
+the general workflow is:
+
+`git checkout dev`
+`git pull origin dev`
+`git checkout <your task branch>`
+
+the general rule of thumb is that if there is a pull request to
+be made while you are working on your task, you should go into
+dev and do a pull request. Then you should go back into your branch
+and continue working on your branch. the pulled code should not
+show up in your branch. Once you merge with dev, you should see the
+pulled code and your code. 
