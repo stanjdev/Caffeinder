@@ -70,6 +70,8 @@ work on button
 
 `git commit -m'worked on button'`
 
+`git push origin stan-button` - makes sure each of our task branches exist on github (like a backup history)
+
 `git checkout dev` (now I'm on dev branch)
 
 `git merge stan-button` (while I'm on dev branch)
