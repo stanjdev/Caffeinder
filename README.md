@@ -7,6 +7,11 @@ Command to clone a specific branch:
 
 git clone -b dev https://github.com/stanjdev/Caffinder
 
+Run this command after you clone dev to ensure your fork has
+the same information:
+
+git remote set-url --add origin <<Addyour repo link here>>
+
 Each member of the team should do the initial clone onto their
 local machine with the dev brach of the repo (not main).
 
