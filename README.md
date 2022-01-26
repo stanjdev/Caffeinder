@@ -5,12 +5,12 @@ github instructions:
 
 Command to clone a specific branch:
 
-git clone -b dev https://github.com/stanjdev/Caffinder
+`git clone -b dev https://github.com/stanjdev/Caffinder`
 
 Run this command after you clone dev to ensure your fork has
 the same information:
 
-git remote set-url --add origin <<Addyour repo link here>>
+`git remote set-url --add origin <<Addyour repo link here>>`
 
 Each member of the team should do the initial clone onto their
 local machine with the dev brach of the repo (not main).
@@ -33,27 +33,27 @@ everything is working, I will merge it with main.
 
 clone down dev branch:
 
--- git clone -b dev https://github.com/stanjdev/Caffinder
+-- `git clone -b dev https://github.com/stanjdev/Caffinder`
 
 add your fork url to origin remote:
 
--- git remote set-url --add origin <>
+-- `git remote set-url --add origin <>`
 
 create your branch off dev:
 
--- git checkout -b branchname
+-- `git checkout -b branchname`
 
 how to merge your branch with dev branch:
 
--- git checkout dev
--- git merge (branch name)
+-- `git checkout dev`
+-- `git merge (branch name)`
 
 how to pull dev branch:
 
--- git checkout dev
--- git pull origin dev
+-- `git checkout dev`
+-- `git pull origin dev`
 
 how to push to dev:
 
--- git push origin dev
+-- `git push origin dev`
 
