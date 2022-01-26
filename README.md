@@ -58,7 +58,9 @@ how to push to dev:
 -- `git push origin dev`
 
 
-Sample workflow:
+--------
+
+# Sample workflow: # 
 
 `git pull origin dev` - to pull most recent changes
 
