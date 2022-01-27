@@ -95,3 +95,16 @@ dev and do a pull request. Then you should go back into your branch
 and continue working on your branch. the pulled code should not
 show up in your branch. Once you merge with dev, you should see the
 pulled code and your code. 
+
+----------- 
+
+For this project, it is recommended that a virtual env is created to ensure code runs propertly.
+
+Create a virtual env and activate it:
+`python3 -m venv venv`
+`source venv/bin/activate`
+`pip install -r requirements.txt`
+
+-----------
+
+Please Check backend README.md for server setup and run instructions. 
