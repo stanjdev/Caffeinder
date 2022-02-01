@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from '../logo.svg';
+import caffinderLogo from '../assets/caffinder-logo.png';
 import Button from './Button';
 
 export default function CoffeeShop() {
@@ -7,17 +7,14 @@ export default function CoffeeShop() {
     <>
       <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <h1>
-          INDIVIDUAL COFFEE SHOP VIEW
-        </h1>
-        <Button customWidth={'70vw'} customText={'Use Current Location'}/>
-        <div style={{marginTop: 20}} >
-          <input 
-            placeholder='Enter Address'
-            style={{ padding: 20, borderRadius: 10, width: '44vw', textAlign: 'center', }} 
-          />
-          <Button onClick={() => console.log('test press')} customWidth={'17vw'} customText={'Search'} color={'black'} textColor={'white'} />
+        <img src={caffinderLogo} className="App-logo" alt="logo" />
+        <h1>Java Stop</h1>
+        <p>Stars, address here</p>
+        <div style={{ marginTop: 20 }} >
+          <div style={{ border: 'solid orange 1px', width: '70vw', padding: '0 20px', borderRadius: 20, display: 'flex', flexDirection: 'column', justifyContent: 'space-evenly', alignItems: 'start' }}>
+            <p>Wifi?</p>
+            <p>Yes</p>
+          </div>
         </div>
       </header>
     </div>

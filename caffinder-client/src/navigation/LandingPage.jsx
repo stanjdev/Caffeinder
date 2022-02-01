@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from '../logo.svg';
+import caffinderLogo from '../assets/caffinder-logo.png';
 import Button from '../components/Button';
 
 export default function LandingPage() {
@@ -7,9 +7,9 @@ export default function LandingPage() {
     <>
       <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <h1>
-          Caffinder
+        <img src={caffinderLogo} className="App-logo" alt="logo" />
+        <h1 style={{ fontFamily:'Abril_Fatface' }}>
+          caffinder
         </h1>
         <Button customWidth={'70vw'} customText={'Use Current Location'}/>
         <div style={{marginTop: 20}} >

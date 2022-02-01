@@ -5,8 +5,8 @@ import ActiveView from './navigation/ActiveView';
 function App() {
   return (
     <>
-      <LandingPage />
-      {/* <ActiveView /> */}
+      {/* <LandingPage /> */}
+      <ActiveView />
     </>
   );
 }
