@@ -9,6 +9,8 @@ const path = require('path');
 
 const app = express();
 
+const YelpRouter = require('../../../routers/Yelp/yelpRouter.js')
+
 app.use(cors());
 app.use(cookieParser());
 app.use(bodyParser.json());
@@ -18,6 +20,8 @@ app.use(session({
   cookie: {maxAge: 60000},
   saveUninitialized: false,
 }));
-app.use(morgan('dev'));
+app.use(morgan('dev'))
+
+app.use('/api/yelp', YelpRouter)
 
 module.exports = app;
