@@ -1,13 +1,25 @@
+import React from 'react';
 import './App.css';
-import LandingPage from './navigation/LandingPage';
-import ActiveView from './navigation/ActiveView';
+import HomePage from './navigation/HomePage';
+import SearchResults from './navigation/SearchResults';
+import CoffeeShop from './components/CoffeeShop';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Link
+} from "react-router-dom";
 
 function App() {
   return (
-    <>
-      {/* <LandingPage /> */}
-      <ActiveView />
-    </>
+    <Router>
+      <Link to="/">Home</Link>
+      <Routes>
+        <Route element={<HomePage />} path="/" />
+        <Route element={<SearchResults />} path="/search_results" />
+        <Route element={<CoffeeShop />} path="/coffee_shop/:id" />
+      </Routes>
+    </Router>
   );
 }
 
