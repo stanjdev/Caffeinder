@@ -18,7 +18,6 @@ export default function CoffeeShopLink({id}) {
   )
 };
 
-
 const styles = {
   linkContainer: {
     border: 'solid 1px black',
