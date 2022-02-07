@@ -13,6 +13,8 @@ export default function SearchResults({ route, navigation }) {
       <div style={styles.resultsContainer}>
         <CoffeeShopLink id={1254}/>
         <CoffeeShopLink id={2314}/>
+        <CoffeeShopLink id={5432}/>
+        <CoffeeShopLink id={6432}/>
       </div>
     </>
   )
@@ -25,6 +27,7 @@ const styles = {
   },
   resultsContainer: {
     display: 'flex',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    flexWrap: 'wrap'
   }
 };

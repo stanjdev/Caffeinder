@@ -45,7 +45,6 @@ export default function HomePage() {
         <h1 style={{ fontFamily:'Abril_Fatface' }}>
           caffinder
         </h1>
-        <Link to="/search_results">Search Results</Link>
         <Button onClick={getCurrentLocation} 
           customWidth={'70vw'} customText={'Use Current Location'}/>
         <div style={{marginTop: 20}} >
@@ -57,6 +56,7 @@ export default function HomePage() {
           />
           <Button onClick={searchAddress} customWidth={'17vw'} customText={'Search'} color={'black'} textColor={'white'} />
         </div>
+        <Link to="/search_results">Search Results</Link>
       </header>
     </div>
     </>
