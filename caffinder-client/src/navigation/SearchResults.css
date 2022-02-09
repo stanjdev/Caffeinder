@@ -20,3 +20,12 @@
   width: 98vw;
   right: 0;
 }
+
+.mapboxgl-popup {
+  max-width: 200px;
+}
+
+.mapboxgl-popup-content {
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+}

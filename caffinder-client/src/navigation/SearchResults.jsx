@@ -4,10 +4,7 @@ import CoffeeShopLink from '../components/CoffeeShopLink';
 import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
 import './SearchResults.css';
 
-// const API_KEY = process.env.MAPBOXGL_ACCESSTOKEN;
-const API_KEY = 'pk.eyJ1Ijoic3Rhbi1kZXYiLCJhIjoiY2tlYm9leWpjMGFpMjJ0cndybWdpbmVwMSJ9.I0CXw1DFG7WYKgyVm7x07A';
-
-mapboxgl.accessToken = API_KEY;
+const API_KEY = process.env.REACT_APP_MAPBOXGL_ACCESSTOKEN;
 
 export default function SearchResults({ route, navigation }) {
   const { query } = useParams();
@@ -20,7 +17,15 @@ export default function SearchResults({ route, navigation }) {
   const [zoom, setZoom] = useState(3);
   const currentMarkers = useRef([]);
   const [stateMarkers, setStateMarkers] = useState([]);
+  const [foundCoffeeShops, setFoundCoffeeShops] = useState([]);
   
+  const yelpSearch = (query) => {
+    console.log(query);
+        // Axios or fetch get request to Yelp API
+    // OR flash alert error message saying unable to get current location, and instructions on how to enable location
+    // https://dev.to/codebucks/how-to-get-user-s-location-in-react-js-1691
+  };
+
   const renderMap = useCallback(() => {
     loadScript('https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.js');
     window.initMap = initMap;
@@ -74,11 +79,10 @@ export default function SearchResults({ route, navigation }) {
     // console.log('zoom', zoom);
   });
   
-
-  const updateMarkers = useCallback(() => {
-    const geojson = {
-      type: 'FeatureCollection',
-      features: [
+// FAKE INCOMING FOUND COFFEE SHOPS DATA
+  useEffect(() => {
+    setTimeout(() => {
+      setFoundCoffeeShops([
         {
           type: 'Feature',
           geometry: {
@@ -100,8 +104,27 @@ export default function SearchResults({ route, navigation }) {
             title: 'Mapbox',
             description: 'San Francisco, California'
           }
-        }
-      ]
+        },
+        {
+          type: 'Feature',
+          geometry: {
+            type: 'Point',
+            coordinates: [-97.7431, 30.2672]
+          },
+          properties: {
+            title: `Searched for: ${query}`,
+            description: query
+          }
+        },
+      ])
+    }, 1000);
+  }, [])
+
+
+  const updateMarkers = useCallback(() => {
+    const geojson = {
+      type: 'FeatureCollection',
+      features: foundCoffeeShops
     };
 
     if (currentMarkers.current.length > 20) {
@@ -121,6 +144,8 @@ export default function SearchResults({ route, navigation }) {
       // make a marker for each feature and add to the map
       let myMarker = new mapboxgl.Marker(el);
       myMarker.setLngLat(marker.geometry.coordinates)
+      .setPopup(new mapboxgl.Popup({ offset: 25 })
+      .setHTML(`<h3>${marker.properties.title}</h3><p>${marker.properties.description}</p>`))
       .addTo(map);
       currentMarkers.current.push(myMarker);
       setStateMarkers([currentMarkers.current]);
@@ -147,9 +172,9 @@ export default function SearchResults({ route, navigation }) {
 
 
   useEffect(() => {
-    console.log(query);
+    // console.log(query);
     updateMarkers();
-  }, [])
+  }, [foundCoffeeShops])
 
 
   return(

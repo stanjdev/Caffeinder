@@ -4,7 +4,7 @@ import Button from '../components/Button';
 import { Link, useNavigate } from 'react-router-dom';
 
 export default function HomePage() {
-  const [ currentLocation, setCurrentLocation ] = useState('California');
+  const [ currentLocation, setCurrentLocation ] = useState('Austin, Texas');
   const address = useRef();
   const navigate = useNavigate();
 
@@ -13,9 +13,6 @@ export default function HomePage() {
       setCurrentLocation(position);
       fetchAndNavigate(currentLocation);
     })
-    // THEN, Axios or fetch get request to Yelp API, then carry returned data and navigate over to next page.
-    // OR flash alert error message saying unable to get current location, and instructions on how to enable location
-    // https://dev.to/codebucks/how-to-get-user-s-location-in-react-js-1691
   };
 
   const searchAddress = () => {
