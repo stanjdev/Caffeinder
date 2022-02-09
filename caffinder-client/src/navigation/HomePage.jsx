@@ -29,12 +29,15 @@ export default function HomePage() {
   const keyPressEnterSearch = (evt) => {
     if (evt.key === 'Enter') {
       searchAddress()
+    } else {
+      setCurrentLocation(evt.target.value);
+      console.log(currentLocation);
     }
   };
 
   const fetchAndNavigate = (location) => {
     console.log(location, 'to the next page!')
-    navigate("search_results", {search: location})
+    navigate(`search_results/${location}`, {query: location})
   };
 
   return (
@@ -56,7 +59,7 @@ export default function HomePage() {
           />
           <Button onClick={searchAddress} customWidth={'17vw'} customText={'Search'} color={'black'} textColor={'white'} />
         </div>
-        <Link to="/search_results">Search Results</Link>
+        <Link to={`/search_results/${currentLocation}`}>Search Results</Link>
       </header>
     </div>
     </>
