@@ -10,31 +10,35 @@ export default function HomePage() {
 
   const getCurrentLocation = () => {
     navigator.geolocation.getCurrentPosition((position) => {
-      setCurrentLocation(position);
-      fetchAndNavigate(currentLocation);
+      const { longitude, latitude } = position.coords;
+      console.log(longitude, latitude);
+      setCurrentLocation([longitude, latitude]);
+      fetchAndNavigate([longitude, latitude]);
     })
   };
 
   const searchAddress = () => {
-    console.log(address.current.value);
-    setCurrentLocation(address.current.value);
     address.current.value = '';
-    // Axios or fetch get request to Yelp API, then carry returned data and navigate over to next page.
     fetchAndNavigate(currentLocation);
   };
 
-  const keyPressEnterSearch = (evt) => {
-    if (evt.key === 'Enter') {
-      searchAddress()
-    } else {
-      setCurrentLocation(evt.target.value);
-      console.log(currentLocation);
-    }
+  const inputChange = (evt) => {
+    setCurrentLocation(evt.target.value.trim());
   };
 
+  const keyPressEnterSearch = (evt) => {
+    if (currentLocation && evt.key === 'Enter') {
+      searchAddress();
+    }
+  };
+  
   const fetchAndNavigate = (location) => {
-    console.log(location, 'to the next page!')
-    navigate(`search_results/${location}`, {query: location})
+    if (currentLocation !== '') {
+      console.log(location, 'to the next page!')
+      navigate(`search_results/${location}`, {query: location})
+    } else {
+      console.log('no empty query allowed');
+    }
   };
 
   return (
@@ -49,7 +53,8 @@ export default function HomePage() {
           customWidth={'70vw'} customText={'Use Current Location'}/>
         <div style={{marginTop: 20}} >
           <input 
-            onKeyDown={(evt) => keyPressEnterSearch(evt)}
+            onKeyDown={keyPressEnterSearch}
+            onChange={inputChange}
             ref={address}
             placeholder='Enter Address'
             style={{ padding: 20, borderRadius: 10, width: '44vw', textAlign: 'center', }} 

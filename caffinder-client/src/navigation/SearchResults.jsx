@@ -3,11 +3,22 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import CoffeeShopLink from '../components/CoffeeShopLink';
 import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
 import './SearchResults.css';
+const axios = require('axios').default;
 
 const API_KEY = process.env.REACT_APP_MAPBOXGL_ACCESSTOKEN;
 
 export default function SearchResults({ route, navigation }) {
   const { query } = useParams();
+
+  // check if incoming query is array of coordinates or address/string
+  let location = query.split(',').map((coord) => Number(coord));
+  console.log('query converted to a number:', location);
+  if (isNaN(location[0])) {
+    location = query;
+  }
+
+  console.log('query final form:', location);
+
   // const mapContainer = useRef(null);
   // const map = useRef(null);
   const [map, setMap] = useState();
@@ -18,13 +29,46 @@ export default function SearchResults({ route, navigation }) {
   const currentMarkers = useRef([]);
   const [stateMarkers, setStateMarkers] = useState([]);
   const [foundCoffeeShops, setFoundCoffeeShops] = useState([]);
+  const [coffeeShopMarkers, setCoffeeShopMarkers] = useState([]);
   
-  const yelpSearch = (query) => {
-    console.log(query);
-        // Axios or fetch get request to Yelp API
+  const yelpSearch = (location) => {
+    console.log(location);
+      axios.get(`localhost:1111/api/yelp/search?term=${'coffee'}&location=${location}`)
+        .then(function(response) {
+          // handle success
+          console.log('response', response);
+          return response.json();
+        })
+        .then(function(json) {
+          if (json.businesses) {
+            // return an object, then store that into state in SearchResults
+            return json.businesses.map((business) => {
+              return {
+                id: business.id,
+                imageSrc: business.image_url,
+                url: business.url,
+                name: business.name,
+                address: business.location.address1,
+                city: business.location.city,
+                state: business.location.state,
+                zipCode: business.location.zip_code,
+                category: business.categories[0] ? business.categories[0].title : null,
+                rating: business.rating,
+                reviewCount: business.review_count,
+                coordinates: business.coordinates
+              }
+            })
+          }
+        })
+        .catch(function (error) {
+          // handle error
+          console.log(error);
+        })
     // OR flash alert error message saying unable to get current location, and instructions on how to enable location
     // https://dev.to/codebucks/how-to-get-user-s-location-in-react-js-1691
   };
+
+
 
   const renderMap = useCallback(() => {
     loadScript('https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.js');
@@ -79,10 +123,30 @@ export default function SearchResults({ route, navigation }) {
     // console.log('zoom', zoom);
   });
   
-// FAKE INCOMING FOUND COFFEE SHOPS DATA
   useEffect(() => {
+    // FROM REAL YELP SEARCH
+    setFoundCoffeeShops(yelpSearch(location));
+    setCoffeeShopMarkers(foundCoffeeShops.map((coffeeShop) => {
+      return {
+        type: 'Feature',
+        geometry: {
+          type: 'Point',
+          coordinates: [coffeeShop.coordinates.longitude, coffeeShop.coordinates.latitude]
+        },
+        properties: {
+          title: coffeeShop.name,
+          address: coffeeShop.address,
+          city: coffeeShop.city,
+          category: coffeeShop.category,
+          url: coffeeShop.url,
+          id: coffeeShop.id
+        }
+      }
+    }))
+    
+    // FAKE INCOMING FOUND COFFEE SHOPS DATA
     setTimeout(() => {
-      setFoundCoffeeShops([
+      setCoffeeShopMarkers([
         {
           type: 'Feature',
           geometry: {
@@ -116,6 +180,17 @@ export default function SearchResults({ route, navigation }) {
             description: query
           }
         },
+        // {
+        //   type: 'Feature',
+        //   geometry: {
+        //     type: 'Point',
+        //     coordinates: location
+        //   },
+        //   properties: {
+        //     title: `Searched for: ${location}`,
+        //     description: location
+        //   }
+        // },
       ])
     }, 1000);
   }, [])
@@ -124,7 +199,7 @@ export default function SearchResults({ route, navigation }) {
   const updateMarkers = useCallback(() => {
     const geojson = {
       type: 'FeatureCollection',
-      features: foundCoffeeShops
+      features: coffeeShopMarkers
     };
 
     if (currentMarkers.current.length > 20) {
@@ -174,7 +249,7 @@ export default function SearchResults({ route, navigation }) {
   useEffect(() => {
     // console.log(query);
     updateMarkers();
-  }, [foundCoffeeShops])
+  }, [coffeeShopMarkers])
 
 
   return(
@@ -185,10 +260,12 @@ export default function SearchResults({ route, navigation }) {
       </div>
 
       <div style={styles.resultsContainer}>
-        <CoffeeShopLink id={1254}/>
-        <CoffeeShopLink id={2314}/>
-        <CoffeeShopLink id={5432}/>
-        <CoffeeShopLink id={6432}/>
+        <CoffeeShopLink key={1} id={1254}/>
+        {/* Query GET /reviews once they click the coffee shop. 
+        Make API call once this is mounted */}
+        <CoffeeShopLink key={2} id={2314}/>
+        <CoffeeShopLink key={3} id={5432}/>
+        <CoffeeShopLink key={4} id={6432}/>
       </div>
     </>
   )
