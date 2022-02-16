@@ -1,6 +1,5 @@
 const yelpBusinesses = {
   get: (req, res) => {
-<<<<<<< HEAD
     console.log("Insert Code Here to get businesses");
     ("use strict");
 
@@ -27,15 +26,11 @@ const yelpBusinesses = {
       .catch((e) => {
         res.send("There was an issue retrieving coffee shops").status(400);
       });
-=======
-    console.log("Insert Code Here");
->>>>>>> omar-firebase-integration
   },
 };
 
 const yelpReviews = {
   get: (req, res) => {
-<<<<<<< HEAD
     const body = req.body;
     let business = body.alias;
     console.log("Insert Code Here to get reviews");
@@ -56,24 +51,15 @@ const yelpReviews = {
       .catch((e) => {
         res.send("There was an issue retrieving business reivews").status(400);
       });
-=======
-    console.log("Insert Code Here");
->>>>>>> omar-firebase-integration
   },
 };
 
 const yelpDetails = {
   get: (req, res) => {
-<<<<<<< HEAD
     const body = req.body;
     let business = body.alias;
     console.log("Insert Code Here to get details");
     ("use strict");
-=======
-    console.log("Insert Code Here");
-  },
-};
->>>>>>> omar-firebase-integration
 
     const yelp = require("yelp-fusion");
     const client = yelp.client(
@@ -96,7 +82,6 @@ const yelpDetails = {
 //need to fix this
 const yelpSimilar = {
   get: (req, res) => {
-<<<<<<< HEAD
     console.log("Insert Code Here to get similar");
     ("use strict");
 
@@ -153,10 +138,3 @@ module.exports = {
   yelpSimilar,
   yelpAutoComplete,
 };
-=======
-    console.log("Insert Code Here");
-  },
-};
-
-module.exports = { yelpBusinesses, yelpReviews, yelpDetails, yelpSimilar };
->>>>>>> omar-firebase-integration
