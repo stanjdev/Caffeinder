@@ -6,9 +6,11 @@ export default function CoffeeShopLink({id}) {
   return(
     <>
       <div style={styles.linkContainer}>
-        <h2>Coffee Shop</h2>
+        <h3>Coffee Shop</h3>
         <Link to={`/coffee_shop/${id}`}>
-          <img src={coffeeShopLinkIcon} alt='placeholder img'/>
+          <div style={{ textAlign: 'center' }}>
+            <img src={coffeeShopLinkIcon} alt='placeholder img'/>
+          </div>
         </Link>
         <p>caption, subheading</p>
       </div>
@@ -16,11 +18,13 @@ export default function CoffeeShopLink({id}) {
   )
 };
 
-
 const styles = {
   linkContainer: {
     border: 'solid 1px black',
     borderRadius: 7,
-    width: '40%',
+    width: '175px',
+    // display: 'flex',
+    // flexDirection: 'column',
+    // alignItems: 'center'
   }
 }
