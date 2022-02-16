@@ -12,7 +12,7 @@ export default function CoffeeShopLink({ id, name, subHeading, image, all_data }
           state={{all_data: all_data}}
         >
           <div style={{ textAlign: 'center' }}>
-            <img src={image} alt={subHeading} height={'200'}/>
+            <img src={image} alt={subHeading} height={'100%'} width={'100%'}/>
           </div>
         </Link>
         <p>{subHeading}</p>
@@ -26,8 +26,9 @@ const styles = {
     border: 'solid 1px black',
     borderRadius: 7,
     width: '175px',
-    // display: 'flex',
-    // flexDirection: 'column',
-    // alignItems: 'center'
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'space-between'
   }
 }

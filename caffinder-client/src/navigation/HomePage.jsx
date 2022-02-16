@@ -4,9 +4,10 @@ import Button from '../components/Button';
 import { Link, useNavigate } from 'react-router-dom';
 
 export default function HomePage() {
-  const [ currentLocation, setCurrentLocation ] = useState('Austin, Texas');
+  const [ currentLocation, setCurrentLocation ] = useState('San Francisco, California');
   const address = useRef();
   const navigate = useNavigate();
+  const [ loadingMessage, setLoadingMessage ] = useState();
 
   const getCurrentLocation = () => {
     navigator.geolocation.getCurrentPosition((position) => {
@@ -15,11 +16,13 @@ export default function HomePage() {
       setCurrentLocation([longitude, latitude]);
       fetchAndNavigate([longitude, latitude]);
     })
+    displayLoadingMessage();
   };
 
   const searchAddress = () => {
     address.current.value = '';
     fetchAndNavigate(currentLocation);
+    displayLoadingMessage();
   };
 
   const inputChange = (evt) => {
@@ -41,6 +44,10 @@ export default function HomePage() {
     }
   };
 
+  const displayLoadingMessage = () => {
+    setLoadingMessage(<p style={{color: 'lightgreen'}}>Searching...</p>);
+  };
+
   return (
     <>
       <div className="App">
@@ -49,6 +56,7 @@ export default function HomePage() {
         <h1 style={{ fontFamily:'Abril_Fatface' }}>
           caffinder
         </h1>
+        {loadingMessage}
         <Button onClick={getCurrentLocation} 
           customWidth={'70vw'} customText={'Use Current Location'}/>
         <div style={{marginTop: 20}} >
@@ -61,7 +69,6 @@ export default function HomePage() {
           />
           <Button onClick={searchAddress} customWidth={'17vw'} customText={'Search'} color={'black'} textColor={'white'} />
         </div>
-        <Link to={`/search_results/${currentLocation}`}>Search Results</Link>
       </header>
     </div>
     </>

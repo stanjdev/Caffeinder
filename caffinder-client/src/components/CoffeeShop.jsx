@@ -24,6 +24,7 @@ export default function CoffeeShop() {
         <p>Rating: {all_data.rating}</p>
         <a href={`http://maps.google.com/?q=${all_data.location.address1} ${all_data.location.city}, ${all_data.location.state} ${all_data.location.zip_code}`} target="_blank" rel="noreferrer noopener">
           <small>{all_data.location.address1}</small>
+          <br></br>
           <small>{all_data.location.city}, {all_data.location.state} {all_data.location.zip_code}</small>
         </a>
         <small>{all_data.phone}</small>

@@ -14,12 +14,12 @@ export default function SearchResults({ route, navigation }) {
 
   // check if incoming query is array of coordinates or address/string
   let location = query.split(',').map((coord) => Number(coord));
-  console.log('query converted to a number:', location);
+  // console.log('query converted to a number:', location);
   if (isNaN(location[0])) {
     location = query;
   }
 
-  console.log('query final form:', location);
+  // console.log('query final form:', location);
 
   // const mapContainer = useRef(null);
   // const map = useRef(null);
@@ -43,7 +43,6 @@ export default function SearchResults({ route, navigation }) {
         })
         .then(function(json) {
           if (json.businesses) {
-            // return an object, then store that into state in SearchResults
             return json.businesses.map((business) => {
               return {
                 id: business.id,
@@ -69,7 +68,6 @@ export default function SearchResults({ route, navigation }) {
     // OR flash alert error message saying unable to get current location, and instructions on how to enable location
     // https://dev.to/codebucks/how-to-get-user-s-location-in-react-js-1691
   };
-
 
 
   const renderMap = useCallback(() => {
@@ -128,75 +126,28 @@ export default function SearchResults({ route, navigation }) {
   useEffect(() => {
     // FROM REAL YELP SEARCH
     // setFoundCoffeeShops(yelpSearch(location));
-    setCoffeeShopMarkers(foundCoffeeShops.map((coffeeShop) => {
-      return {
-        type: 'Feature',
-        geometry: {
-          type: 'Point',
-          coordinates: [coffeeShop.coordinates.longitude, coffeeShop.coordinates.latitude]
-        },
-        properties: {
-          title: coffeeShop.name,
-          address: coffeeShop.address,
-          city: coffeeShop.city,
-          category: coffeeShop.category,
-          url: coffeeShop.url,
-          id: coffeeShop.id
-        }
-      }
-    }))
-  
-
+    
     // FAKE INCOMING FOUND COFFEE SHOPS DATA
     setTimeout(() => {
-      setCoffeeShopMarkers([
-        {
+      setCoffeeShopMarkers(foundCoffeeShops.map((coffeeShop) => {
+        return {
           type: 'Feature',
           geometry: {
             type: 'Point',
-            coordinates: [-77.032, 38.913]
+            coordinates: [coffeeShop.coordinates.longitude, coffeeShop.coordinates.latitude]
           },
           properties: {
-            title: 'Mapbox',
-            description: 'Washington, D.C.'
+            title: coffeeShop.name,
+            address: coffeeShop.address,
+            city: coffeeShop.city,
+            category: coffeeShop.categories[0].title,
+            url: coffeeShop.url,
+            id: coffeeShop.id
           }
-        },
-        {
-          type: 'Feature',
-          geometry: {
-            type: 'Point',
-            coordinates: [-122.414, 37.776]
-          },
-          properties: {
-            title: 'Mapbox',
-            description: 'San Francisco, California'
-          }
-        },
-        {
-          type: 'Feature',
-          geometry: {
-            type: 'Point',
-            coordinates: [-97.7431, 30.2672]
-          },
-          properties: {
-            title: `Searched for: ${query}`,
-            description: query
-          }
-        },
-        // {
-        //   type: 'Feature',
-        //   geometry: {
-        //     type: 'Point',
-        //     coordinates: location
-        //   },
-        //   properties: {
-        //     title: `Searched for: ${location}`,
-        //     description: location
-        //   }
-        // },
-      ])
+        }
+      }))
     }, 1000);
-  }, [])
+  }, [foundCoffeeShops])
 
 
   const updateMarkers = useCallback(() => {
@@ -223,11 +174,10 @@ export default function SearchResults({ route, navigation }) {
       let myMarker = new mapboxgl.Marker(el);
       myMarker.setLngLat(marker.geometry.coordinates)
       .setPopup(new mapboxgl.Popup({ offset: 25 })
-      .setHTML(`<h3>${marker.properties.title}</h3><p>${marker.properties.description}</p>`))
+      .setHTML(`<h3>${marker.properties.title}</h3><p>${marker.properties.category}</p>`))
       .addTo(map);
       currentMarkers.current.push(myMarker);
       setStateMarkers([currentMarkers.current]);
-
       el.addEventListener('click', function(evt) {
         flyToSpot(marker);
       })
@@ -251,16 +201,14 @@ export default function SearchResults({ route, navigation }) {
 
   useEffect(() => {
     // console.log(query);
-    updateMarkers();
     setMockJsonData();
-    console.log('found coffee shops:', coffeeShopLinks)
+    updateMarkers();
+    console.log('found coffee shops:', coffeeShopLinks);
   }, [coffeeShopMarkers])
-
-
+  
   const setMockJsonData = () => {
     setFoundCoffeeShops(businesses.businesses);
   };
-
 
   const coffeeShopLinks = foundCoffeeShops.map((shop) => {
     const subHeading = shop.categories[0].title;
@@ -271,9 +219,9 @@ export default function SearchResults({ route, navigation }) {
   })
 
 
-  return(
+  return (
     <>
-      <h2>Coffee shops in {query}</h2>
+      <h2>Coffee shops in <span style={{color: 'blue'}}>{query}</span></h2>
       <div style={styles.mapContainer}>
         <div id='map' className="map-container" />
       </div>
