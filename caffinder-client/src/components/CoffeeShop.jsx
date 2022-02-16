@@ -1,22 +1,33 @@
 import React from 'react';
 import caffinderLogo from '../assets/caffinder-logo.png';
 import Button from './Button';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 
 export default function CoffeeShop() {
-  const { id } = useParams();
-  // https://ui.dev/react-router-url-parameters/
   let navigate = useNavigate();
+  const { id } = useParams();
+  const location = useLocation();
+  const all_data = location.state?.all_data;
+
+  console.log(all_data)
+  // https://ui.dev/react-router-url-parameters/
 
   return (
     <>
       <div className="App">
       <header className="App-header">
         <button onClick={() => navigate(-1)}>Go Back</button>
-        <img src={caffinderLogo} className="App-logo" alt="logo" />
-        <h1>Java Stop</h1>
-        <p>{id}</p>
-        <p>Stars, address here</p>
+        <a href={all_data.url} target="_blank" rel="noreferrer noopener">
+          <img src={all_data.image_url} className="App-logo" alt="logo" />
+        </a>
+        <h1>{all_data.name}</h1>
+        <p>Rating: {all_data.rating}</p>
+        <a href={`http://maps.google.com/?q=${all_data.location.address1} ${all_data.location.city}, ${all_data.location.state} ${all_data.location.zip_code}`} target="_blank" rel="noreferrer noopener">
+          <small>{all_data.location.address1}</small>
+          <small>{all_data.location.city}, {all_data.location.state} {all_data.location.zip_code}</small>
+        </a>
+        <small>{all_data.phone}</small>
+        <p>id: {id}</p>
         <div style={{ marginTop: 20 }} >
           <div style={ styles.businessInfoBox }>
             <p>Wifi?</p>

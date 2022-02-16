@@ -1,3 +1,5 @@
+import businesses from '../mockdata/businesses.json';
+import businesses_id from '../mockdata/businesses_id.json';
 import React, { useRef, useEffect, useState, useCallback } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import CoffeeShopLink from '../components/CoffeeShopLink';
@@ -125,7 +127,7 @@ export default function SearchResults({ route, navigation }) {
   
   useEffect(() => {
     // FROM REAL YELP SEARCH
-    setFoundCoffeeShops(yelpSearch(location));
+    // setFoundCoffeeShops(yelpSearch(location));
     setCoffeeShopMarkers(foundCoffeeShops.map((coffeeShop) => {
       return {
         type: 'Feature',
@@ -143,7 +145,8 @@ export default function SearchResults({ route, navigation }) {
         }
       }
     }))
-    
+  
+
     // FAKE INCOMING FOUND COFFEE SHOPS DATA
     setTimeout(() => {
       setCoffeeShopMarkers([
@@ -249,7 +252,23 @@ export default function SearchResults({ route, navigation }) {
   useEffect(() => {
     // console.log(query);
     updateMarkers();
+    setMockJsonData();
+    console.log('found coffee shops:', coffeeShopLinks)
   }, [coffeeShopMarkers])
+
+
+  const setMockJsonData = () => {
+    setFoundCoffeeShops(businesses.businesses);
+  };
+
+
+  const coffeeShopLinks = foundCoffeeShops.map((shop) => {
+    const subHeading = shop.categories[0].title;
+    const { id, name, image_url } = shop;
+    return (
+      <CoffeeShopLink key={id} id={id} name={name} subHeading={subHeading} image={image_url} all_data={shop} />
+    )
+  })
 
 
   return(
@@ -260,12 +279,9 @@ export default function SearchResults({ route, navigation }) {
       </div>
 
       <div style={styles.resultsContainer}>
-        <CoffeeShopLink key={1} id={1254}/>
         {/* Query GET /reviews once they click the coffee shop. 
         Make API call once this is mounted */}
-        <CoffeeShopLink key={2} id={2314}/>
-        <CoffeeShopLink key={3} id={5432}/>
-        <CoffeeShopLink key={4} id={6432}/>
+        { coffeeShopLinks }
       </div>
     </>
   )
