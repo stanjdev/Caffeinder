@@ -57,7 +57,8 @@ const yelpDetails = {
     });
   }
 }
-
+// Yelp similar api endpoint is not working
+//need to fix this
 const yelpSimilar = {
   get: (req, res) => {
     console.log('Insert Code Here to get similar');
