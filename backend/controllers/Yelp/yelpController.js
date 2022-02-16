@@ -2,7 +2,6 @@ const yelpBusinesses = {
   get: (req, res) => {
     console.log("Insert Code Here");
   },
-  s,
 };
 
 const yelpReviews = {
