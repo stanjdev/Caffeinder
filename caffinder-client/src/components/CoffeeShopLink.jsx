@@ -2,17 +2,20 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import coffeeShopLinkIcon from '../assets/coffee-shop-link-icon.png';
 
-export default function CoffeeShopLink({id}) {
+export default function CoffeeShopLink({ id, name, subHeading, image, all_data }) {
   return(
     <>
       <div style={styles.linkContainer}>
-        <h3>Coffee Shop</h3>
-        <Link to={`/coffee_shop/${id}`}>
+        <h3>{name}</h3>
+        <Link
+          to={`/coffee_shop/${id}`}
+          state={{all_data: all_data}}
+        >
           <div style={{ textAlign: 'center' }}>
-            <img src={coffeeShopLinkIcon} alt='placeholder img'/>
+            <img src={image} alt={subHeading} height={'200'}/>
           </div>
         </Link>
-        <p>caption, subheading</p>
+        <p>{subHeading}</p>
       </div>
     </>
   )
