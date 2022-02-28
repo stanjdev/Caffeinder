@@ -2,7 +2,6 @@ import React from "react";
 import caffinderLogo from "../assets/caffinder-logo.png";
 import Button from "./Button";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
-import axios from "axios";
 
 export default function CoffeeShop() {
   let navigate = useNavigate();
@@ -27,17 +26,6 @@ export default function CoffeeShop() {
   // .then()
   // .catch()
 
-  let url_link = `http://localhost:1111/api/yelp/businesses/` + id + "/reviews";
-
-  axios
-    .get(url_link)
-    .then((response) => {
-      console.log("response", response.data);
-    })
-    .catch((err) => {
-      console.error(err);
-    });
-
   return (
     <>
       <div className="App">
@@ -54,7 +42,6 @@ export default function CoffeeShop() {
             rel="noreferrer noopener"
           >
             <small>{all_data.location.address1}</small>
-            <br></br>
             <small>
               {all_data.location.city}, {all_data.location.state}{" "}
               {all_data.location.zip_code}
@@ -65,6 +52,10 @@ export default function CoffeeShop() {
           <div style={{ marginTop: 20 }}>
             <div style={styles.businessInfoBox}>
               <p>Wifi?</p>
+              <p>Yes</p>
+            </div>
+            <div style={styles.businessInfoBox}>
+              <p>Student friendly?</p>
               <p>Yes</p>
             </div>
           </div>
