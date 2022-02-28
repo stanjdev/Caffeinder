@@ -1,30 +1,36 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import caffinderLogo from "../assets/caffinder-logo.png";
 import Button from "./Button";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
+import axios from "axios";
 
 export default function CoffeeShop() {
   let navigate = useNavigate();
-  const { id } = useParams();
+  const { id, name } = useParams();
   const location = useLocation();
   const all_data = location.state?.all_data;
 
-  // console.log(all_data)
-  // https://ui.dev/react-router-url-parameters/
-  //
+  const [reviews, setReviews] = useState([]);
 
-  //ADD api request to Detail & Reviews
-  // DETAILS
-  //axios
-  // .get(`http://localhost:1111/api/yelp/businesses/{id}`)
-  // .then()
-  // .catch()
+  let url_link = "http://localhost:1111/api/yelp/reviews";
 
-  // REVIEWS
-  //axios
-  // .get(`http://localhost:1111/api/yelp/businesses/{id}`)
-  // .then()
-  // .catch()
+  useEffect(() => {
+    axios
+      .post(url_link, {
+        all_data,
+      })
+      .then((response) => {
+        console.log("response", response.data);
+        setReviews(response.data);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }, []);
+
+  useEffect(() => {
+    console.log("reviews set", reviews);
+  }, [reviews]);
 
   return (
     <>
@@ -42,6 +48,7 @@ export default function CoffeeShop() {
             rel="noreferrer noopener"
           >
             <small>{all_data.location.address1}</small>
+            <br></br>
             <small>
               {all_data.location.city}, {all_data.location.state}{" "}
               {all_data.location.zip_code}
@@ -54,11 +61,17 @@ export default function CoffeeShop() {
               <p>Wifi?</p>
               <p>Yes</p>
             </div>
-            <div style={styles.businessInfoBox}>
-              <p>Student friendly?</p>
-              <p>Yes</p>
-            </div>
           </div>
+          {reviews.map((review) => {
+            return (
+              <div key={review.id}>
+                <p>{review.rating}</p>
+                <p>{review.user.name}</p>
+                <p>{review.time_created}</p>
+                <p>{review.text}</p>
+              </div>
+            );
+          })}
         </header>
       </div>
     </>

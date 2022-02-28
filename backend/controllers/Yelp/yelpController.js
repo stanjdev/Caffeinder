@@ -41,9 +41,8 @@ const yelpBusinesses = {
 };
 
 const yelpReviews = {
-  get: (req, res) => {
-    const body = req.body;
-    console.log(body);
+  post: (req, res) => {
+    const body = req.body.all_data;
     let business = body.alias;
     ("use strict");
 
@@ -55,11 +54,13 @@ const yelpReviews = {
     client
       .reviews(business)
       .then((response) => {
+        console.log(response);
         let reviews = response.jsonBody.reviews;
         // console.log(response.jsonBody.reviews);
         res.send(reviews).status(200);
       })
       .catch((e) => {
+        console.log(e);
         res.send("There was an issue retrieving business reivews").status(400);
       });
   },
