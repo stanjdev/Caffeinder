@@ -1,6 +1,6 @@
 const yelpBusinesses = {
-  get: (req, res) => {
-    console.log("Insert Code Here to get businesses");
+  post: (req, res) => {
+    // console.log("Insert Code Here to get businesses");
     ("use strict");
 
     const yelp = require("yelp-fusion");
@@ -10,10 +10,21 @@ const yelpBusinesses = {
     const apiKey =
       "Jk6OGhKusZG5Qn6aoEVDIYfXwVAD83DYG0bekF3uGPqqyhLYyVhZjTQIIpWQlMR6dr0p4FEFk05SgQzMci2IU-6e1khz6ONpKgrbdmv-7oR9O2XMzbDlhC6qR1cBYnYx";
 
-    const searchRequest = {
-      term: "Coffee shops",
-      location: "san francisco, ca",
-    };
+    const body = req.body;
+    const location = body.location;
+    const searchRequest = {};
+    if (Array.isArray(location)) {
+      searchRequest.term = body.term;
+      searchRequest.latitude = body.location[1];
+      searchRequest.longitude = body.location[0];
+      searchRequest.limit = body.limit;
+      searchRequest.radius = body.radius;
+    } else {
+      searchRequest.term = body.term;
+      searchRequest.location = body.location;
+      searchRequest.limit = body.limit;
+      searchRequest.radius = body.radius;
+    }
 
     const client = yelp.client(apiKey);
 
@@ -32,8 +43,8 @@ const yelpBusinesses = {
 const yelpReviews = {
   get: (req, res) => {
     const body = req.body;
+    console.log(body);
     let business = body.alias;
-    console.log("Insert Code Here to get reviews");
     ("use strict");
 
     const yelp = require("yelp-fusion");
@@ -45,7 +56,7 @@ const yelpReviews = {
       .reviews(business)
       .then((response) => {
         let reviews = response.jsonBody.reviews;
-        console.log(response.jsonBody.reviews);
+        // console.log(response.jsonBody.reviews);
         res.send(reviews).status(200);
       })
       .catch((e) => {
@@ -58,7 +69,7 @@ const yelpDetails = {
   get: (req, res) => {
     const body = req.body;
     let business = body.alias;
-    console.log("Insert Code Here to get details");
+    // console.log("Insert Code Here to get details");
     ("use strict");
 
     const yelp = require("yelp-fusion");
@@ -70,7 +81,7 @@ const yelpDetails = {
       .business(business)
       .then((response) => {
         let details = response.jsonBody;
-        console.log(response.jsonBody.name);
+        // console.log(response.jsonBody.name);
         res.send(details).status(200);
       })
       .catch((e) => {
@@ -82,7 +93,7 @@ const yelpDetails = {
 //need to fix this
 const yelpSimilar = {
   get: (req, res) => {
-    console.log("Insert Code Here to get similar");
+    // console.log("Insert Code Here to get similar");
     ("use strict");
 
     const yelp = require("yelp-fusion");
@@ -100,7 +111,7 @@ const yelpSimilar = {
         country: "US",
       })
       .then((response) => {
-        console.log(response.jsonBody.businesses[0].id);
+        // console.log(response.jsonBody.businesses[0].id);
       })
       .catch((e) => {
         console.log(e);
@@ -110,7 +121,7 @@ const yelpSimilar = {
 
 const yelpAutoComplete = {
   get: (req, res) => {
-    console.log("Insert Code Here to get similar");
+    // console.log("Insert Code Here to get similar");
     ("use strict");
 
     const yelp = require("yelp-fusion");
@@ -123,7 +134,7 @@ const yelpAutoComplete = {
         text: "pasta",
       })
       .then((response) => {
-        console.log(response.jsonBody.terms[0].text);
+        // console.log(response.jsonBody.terms[0].text);
       })
       .catch((e) => {
         console.log(e);
