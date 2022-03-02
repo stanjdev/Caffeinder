@@ -3,9 +3,9 @@ const controller = require("../../controllers/Yelp/yelpController.js");
 
 router.route("/businesses").post(controller.yelpBusinesses.post);
 
-router.route("/reviews").get(controller.yelpReviews.get);
+router.route("/reviews").post(controller.yelpReviews.post);
 
-router.route("/details").get(controller.yelpDetails.get);
+router.route("/details").post(controller.yelpDetails.post);
 
 router.route("/similar").get(controller.yelpSimilar.get);
 

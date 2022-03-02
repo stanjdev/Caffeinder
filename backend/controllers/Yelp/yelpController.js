@@ -41,9 +41,8 @@ const yelpBusinesses = {
 };
 
 const yelpReviews = {
-  get: (req, res) => {
-    const body = req.body;
-    console.log(body);
+  post: (req, res) => {
+    const body = req.body.all_data;
     let business = body.alias;
     ("use strict");
 
@@ -60,14 +59,16 @@ const yelpReviews = {
         res.send(reviews).status(200);
       })
       .catch((e) => {
+        console.log(e);
         res.send("There was an issue retrieving business reivews").status(400);
       });
   },
 };
 
 const yelpDetails = {
-  get: (req, res) => {
-    const body = req.body;
+  post: (req, res) => {
+    const body = req.body.all_data;
+    console.log(body);
     let business = body.alias;
     // console.log("Insert Code Here to get details");
     ("use strict");

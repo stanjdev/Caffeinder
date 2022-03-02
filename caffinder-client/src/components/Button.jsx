@@ -1,22 +1,14 @@
-import React from 'react';
-import './Button.css';
+import React from "react";
+import "./Button.css";
 
 function Button({ onClick, customWidth, customText, color, textColor }) {
-  return(
+  return (
     <>
-      <button 
-        onClick={onClick}
-        style={{ 
-          padding: 20, 
-          borderRadius: 20, 
-          width: customWidth, 
-          backgroundColor: color || null,
-          color: textColor || null
-      }}>
+      <button className="pure-button c-l-button" onClick={onClick}>
         {customText}
-      </button> 
+      </button>
     </>
-  )
-};
+  );
+}
 
 export default Button;

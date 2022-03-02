@@ -10,6 +10,7 @@ const axios = require("axios").default;
 const API_KEY = process.env.REACT_APP_MAPBOXGL_ACCESSTOKEN;
 
 export default function SearchResults({ route, navigation }) {
+  let navigate = useNavigate();
   const { query } = useParams();
 
   let location = query.split(",").map((coord) => Number(coord));
@@ -232,17 +233,21 @@ export default function SearchResults({ route, navigation }) {
 
   return (
     <>
-      <h2>
-        Coffee shops in <span style={{ color: "blue" }}>{query}</span>
-      </h2>
-      <div style={styles.mapContainer}>
-        <div id="map" className="map-container" />
-      </div>
+      <div className="container-results">
+        <div>
+          <button className="go-back-button" onClick={() => navigate(-1)}>
+            Go Back
+          </button>
+        </div>
+        <div className="map-container">
+          <div id="map" className="map-content" />
+        </div>
 
-      <div style={styles.resultsContainer}>
-        {/* Query GET /reviews once they click the coffee shop. 
-        Make API call once this is mounted */}
-        {coffeeShopLinks}
+        <div style={styles.resultsContainer}>
+          {/* Query GET /reviews once they click the coffee shop. 
+          Make API call once this is mounted */}
+          {coffeeShopLinks}
+        </div>
       </div>
     </>
   );
