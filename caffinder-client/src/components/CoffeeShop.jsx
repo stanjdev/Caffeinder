@@ -158,7 +158,7 @@ export default function CoffeeShop() {
             );
           })}
         </div>
-        <form class="pure-form pure-form-stacked">
+        <form className="pure-form pure-form-stacked">
           <fieldset>
             <legend>Add A Review</legend>
             <label for="stacked-name">Name</label>
@@ -179,7 +179,7 @@ export default function CoffeeShop() {
             <label for="stacked-review">Review</label>
             <input type="blurb" id="stacked-review" placeholder="Review" />
             <br></br>
-            <button type="submit" class="pure-button pure-button-primary">
+            <button type="submit" className="pure-button pure-button-primary">
               Add Reivew
             </button>
           </fieldset>
