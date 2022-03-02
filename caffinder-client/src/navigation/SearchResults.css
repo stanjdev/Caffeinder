@@ -33,3 +33,14 @@
 .map-container {
   border-radius: 5px;
 }
+
+.container-results {
+  display: flex;
+  flex-direction: column;
+  margin: 12px;
+}
+
+.go-back-button {
+  width: 100%;
+  margin-bottom: 12px;
+}
