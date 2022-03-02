@@ -54,7 +54,6 @@ const yelpReviews = {
     client
       .reviews(business)
       .then((response) => {
-        console.log(response);
         let reviews = response.jsonBody.reviews;
         // console.log(response.jsonBody.reviews);
         res.send(reviews).status(200);
@@ -67,8 +66,9 @@ const yelpReviews = {
 };
 
 const yelpDetails = {
-  get: (req, res) => {
-    const body = req.body;
+  post: (req, res) => {
+    const body = req.body.all_data;
+    console.log(body);
     let business = body.alias;
     // console.log("Insert Code Here to get details");
     ("use strict");

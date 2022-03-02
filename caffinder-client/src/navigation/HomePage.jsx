@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import caffinderLogo from "../assets/caffinder-logo.png";
+import caffinderLogo from "../assets/coffee-cup.png";
 import Button from "../components/Button";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -50,38 +50,36 @@ export default function HomePage() {
 
   return (
     <>
-      <div className="App">
-        <header className="App-header">
-          <img src={caffinderLogo} className="App-logo" alt="logo" />
-          <h1 style={{ fontFamily: "Abril_Fatface" }}>caffinder</h1>
+      <div className="pure-g tx-c">
+        <div className="pure-u-sm-3-5 df-c-c">
+          <img src={caffinderLogo} className="logo-main" alt="logo" />
+          <h1 className="name">CAFFINDER</h1>
+          <p className="sub-heading">Satisfy your coffee cravings!</p>
           <Button
             onClick={getCurrentLocation}
             customWidth={"70vw"}
             customText={"Use Current Location"}
           />
           <div style={{ marginTop: 20 }}>
-            <input
-              onKeyDown={keyPressEnterSearch}
-              onChange={inputChange}
-              ref={address}
-              placeholder="Enter Address"
-              style={{
-                padding: 20,
-                borderRadius: 10,
-                width: "44vw",
-                textAlign: "center",
-              }}
-            />
-            <Button
-              onClick={searchAddress}
-              customWidth={"17vw"}
-              customText={"Search"}
-              color={"black"}
-              textColor={"white"}
-            />
+            <form className="pure-form">
+              <input
+                className="address-input"
+                onKeyDown={keyPressEnterSearch}
+                onChange={inputChange}
+                ref={address}
+                placeholder="Enter Address"
+              />
+              <Button
+                onClick={searchAddress}
+                customWidth={"17vw"}
+                customText={"Search"}
+                color={"black"}
+                textColor={"white"}
+              />
+            </form>
           </div>
-          <Link to={`/search_results/${currentLocation}`}>Search Results</Link>
-        </header>
+          {/* <Link to={`/search_results/${currentLocation}`}>Search Results</Link> */}
+        </div>
       </div>
     </>
   );

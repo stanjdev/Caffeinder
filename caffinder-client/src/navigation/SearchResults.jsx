@@ -232,11 +232,8 @@ export default function SearchResults({ route, navigation }) {
 
   return (
     <>
-      <h2>
-        Coffee shops in <span style={{ color: "blue" }}>{query}</span>
-      </h2>
-      <div style={styles.mapContainer}>
-        <div id="map" className="map-container" />
+      <div className="map-container">
+        <div id="map" className="map-content" />
       </div>
 
       <div style={styles.resultsContainer}>

@@ -1,0 +1,49 @@
+.shop-container {
+  display: flex;
+  flex-direction: column;
+  margin: 12px;
+}
+
+.c-s-image {
+  margin-top: 8px;
+  height: 250px;
+  width: 100%;
+  object-fit: cover;
+}
+
+.c-s-image-carousel {
+  height: 250px;
+  width: 33.33%;
+  object-fit: cover;
+}
+
+.shop-name {
+  font-weight: bold;
+}
+
+.shop-rating {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.shop-hours {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.rating-created {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.review-header {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.review {
+  border-top: 2px solid grey;
+}
